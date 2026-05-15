@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Frontend Mentor | Typing Speed Test</title>
+</head>
+<body>
+  <main class="app" data-state="idle">
+    <header class="header">
+      <a class="brand" href="#" aria-label="Typing Speed Test home">
+        <img class="brand__logo brand__logo--large" src="./assets/images/logo-large.svg" alt="">
+        <img class="brand__logo brand__logo--small" src="./assets/images/logo-small.svg" alt="">
+      </a>
+
+      <div class="personal-best" aria-live="polite">
+        <img src="./assets/images/icon-personal-best.svg" alt="">
+        <span class="personal-best__label">Personal best:</span>
+        <span class="personal-best__mobile">Best:</span>
+        <strong id="personalBest">-- WPM</strong>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Test controls and statistics">
+      <dl class="stats">
+        <div class="stat">
+          <dt>WPM:</dt>
+          <dd id="wpmValue">0</dd>
+        </div>
+        <div class="stat">
+          <dt>Accuracy:</dt>
+          <dd id="accuracyValue">100%</dd>
+        </div>
+        <div class="stat">
+          <dt>Time:</dt>
+          <dd id="timeValue">0:60</dd>
+        </div>
+      </dl>
+
+      <div class="controls">
+        <div class="control control--language" data-control="language">
+          <span class="control__label">Language:</span>
+          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
+            <span data-selected-label>English</span>
+            <img src="./assets/images/icon-down-arrow.svg" alt="">
+          </button>
+          <div class="choice-group" role="listbox" aria-label="Language">
+            <button class="choice is-active" type="button" role="option" data-language="en" aria-selected="true">English</button>
+            <button class="choice" type="button" role="option" data-language="uk" aria-selected="false">Українська</button>
+          </div>
+        </div>
+
+        <div class="control control--difficulty" data-control="difficulty">
+          <span class="control__label">Difficulty:</span>
+          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
+            <span data-selected-label>Hard</span>
+            <img src="./assets/images/icon-down-arrow.svg" alt="">
+          </button>
+          <div class="choice-group" role="listbox" aria-label="Difficulty">
+            <button class="choice" type="button" role="option" data-difficulty="easy" aria-selected="false">Easy</button>
+            <button class="choice" type="button" role="option" data-difficulty="medium" aria-selected="false">Medium</button>
+            <button class="choice is-active" type="button" role="option" data-difficulty="hard" aria-selected="true">Hard</button>
+          </div>
+        </div>
+
+        <div class="control control--mode" data-control="mode">
+          <span class="control__label">Mode:</span>
+          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
+            <span data-selected-label>Timed (60s)</span>
+            <img src="./assets/images/icon-down-arrow.svg" alt="">
+          </button>
+          <div class="choice-group" role="listbox" aria-label="Mode">
+            <button class="choice is-active" type="button" role="option" data-mode="timed" aria-selected="true">Timed (60s)</button>
+            <button class="choice" type="button" role="option" data-mode="passage" aria-selected="false">Passage</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="typing-card" aria-label="Typing area">
+      <button class="passage" id="passage" type="button" aria-label="Typing passage. Click and begin typing."></button>
+
+      <div class="start-overlay" id="startOverlay">
+        <button class="primary-button" id="startButton" type="button">Start Typing Test</button>
+        <p>Or click the text and start typing</p>
+      </div>
+
+      <textarea class="typing-input" id="typingInput" aria-label="Type the passage here" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+    </section>
+
+    <div class="action-row">
+      <button class="restart-button" id="restartButton" type="button">
+        <span>Restart Test</span>
+        <img src="./assets/images/icon-restart.svg" alt="">
+      </button>
+    </div>
+
+    <section class="results" id="results" aria-live="polite" hidden>
+      <img class="results__icon results__icon--complete" src="./assets/images/icon-completed.svg" alt="">
+      <img class="results__icon results__icon--new" src="./assets/images/icon-new-pb.svg" alt="">
+      <img class="results__confetti" src="./assets/images/pattern-confetti.svg" alt="">
+      <img class="decor decor--one" src="./assets/images/pattern-star-1.svg" alt="">
+      <img class="decor decor--two" src="./assets/images/pattern-star-2.svg" alt="">
+
+      <h1 id="resultTitle">Test Complete!</h1>
+      <p id="resultMessage">Solid run. Keep pushing to beat your high score.</p>
+
+      <dl class="result-grid">
+        <div class="result-card">
+          <dt>WPM:</dt>
+          <dd id="resultWpm">0</dd>
+        </div>
+        <div class="result-card">
+          <dt>Accuracy:</dt>
+          <dd id="resultAccuracy">100%</dd>
+        </div>
+        <div class="result-card">
+          <dt>Characters</dt>
+          <dd><span id="resultCorrect">0</span><span>/</span><span id="resultIncorrect">0</span></dd>
+        </div>
+      </dl>
+
+      <button class="again-button" id="againButton" type="button">
+        <span>Go Again</span>
+        <img src="./assets/images/icon-restart.svg" alt="">
+      </button>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
