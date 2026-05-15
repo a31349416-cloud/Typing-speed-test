@@ -20,6 +20,9 @@ const resultWpm = document.querySelector("#resultWpm");
 const resultAccuracy = document.querySelector("#resultAccuracy");
 const resultCorrect = document.querySelector("#resultCorrect");
 const resultIncorrect = document.querySelector("#resultIncorrect");
+const languageSelect = document.querySelector("#languageSelect");
+const difficultySelect = document.querySelector("#difficultySelect");
+const modeSelect = document.querySelector("#modeSelect");
 
 let passages = { easy: [], medium: [], hard: [] };
 let language = "en";
@@ -312,27 +315,9 @@ function updatePersonalBest() {
 }
 
 function updateControls() {
-  document.querySelectorAll("[data-language]").forEach((button) => {
-    const isActive = button.dataset.language === language;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-selected", String(isActive));
-  });
-
-  document.querySelectorAll("[data-difficulty]").forEach((button) => {
-    const isActive = button.dataset.difficulty === difficulty;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-selected", String(isActive));
-  });
-
-  document.querySelectorAll("[data-mode]").forEach((button) => {
-    const isActive = button.dataset.mode === mode;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-selected", String(isActive));
-  });
-
-  document.querySelector('[data-control="language"] [data-selected-label]').textContent = language === "en" ? "English" : "Українська";
-  document.querySelector('[data-control="difficulty"] [data-selected-label]').textContent = capitalize(difficulty);
-  document.querySelector('[data-control="mode"] [data-selected-label]').textContent = mode === "timed" ? "Timed (60s)" : "Passage";
+  languageSelect.value = language;
+  difficultySelect.value = difficulty;
+  modeSelect.value = mode;
 }
 
 function setLanguage(nextLanguage) {
@@ -357,17 +342,6 @@ function setMode(nextMode) {
   restartTest();
 }
 
-function capitalize(value) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-function closeMenus() {
-  document.querySelectorAll(".control.is-open").forEach((control) => {
-    control.classList.remove("is-open");
-    control.querySelector(".select-trigger")?.setAttribute("aria-expanded", "false");
-  });
-}
-
 startButton.addEventListener("click", startTest);
 restartButton.addEventListener("click", restartTest);
 againButton.addEventListener("click", restartTest);
@@ -376,7 +350,7 @@ typingInput.addEventListener("input", handleTyping);
 
 document.addEventListener("keydown", (event) => {
   const isTypingKey = event.key.length === 1 || event.key === "Backspace";
-  const isControlTarget = event.target.closest?.("button, a");
+  const isControlTarget = event.target.closest?.("button, a, select");
   const isTextInput = event.target === typingInput;
 
   if (
@@ -401,41 +375,8 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-document.querySelectorAll("[data-difficulty]").forEach((button) => {
-  button.addEventListener("click", () => {
-    setDifficulty(button.dataset.difficulty);
-    closeMenus();
-  });
-});
-
-document.querySelectorAll("[data-language]").forEach((button) => {
-  button.addEventListener("click", () => {
-    setLanguage(button.dataset.language);
-    closeMenus();
-  });
-});
-
-document.querySelectorAll("[data-mode]").forEach((button) => {
-  button.addEventListener("click", () => {
-    setMode(button.dataset.mode);
-    closeMenus();
-  });
-});
-
-document.querySelectorAll(".select-trigger").forEach((button) => {
-  button.addEventListener("click", () => {
-    const control = button.closest(".control");
-    const shouldOpen = !control.classList.contains("is-open");
-    closeMenus();
-    control.classList.toggle("is-open", shouldOpen);
-    button.setAttribute("aria-expanded", String(shouldOpen));
-  });
-});
-
-document.addEventListener("click", (event) => {
-  if (!event.target.closest(".control")) {
-    closeMenus();
-  }
-});
+languageSelect.addEventListener("change", () => setLanguage(languageSelect.value));
+difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));
+modeSelect.addEventListener("change", () => setMode(modeSelect.value));
 
 init();

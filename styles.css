@@ -19,7 +19,7 @@
   --green-500: hsl(140, 63%, 57%);
   --yellow-400: hsl(49, 85%, 70%);
   --border: hsl(0, 0%, 24%);
-  --page-x: clamp(1rem, 7.8vw, 7rem);
+  --page-x: 7rem;
 }
 
 * {
@@ -41,7 +41,8 @@ body {
 }
 
 button,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
@@ -55,7 +56,8 @@ img {
 
 .app {
   position: relative;
-  width: min(100%, 1440px);
+  width: 100%;
+  max-width: 1440px;
   min-height: 100vh;
   margin: 0 auto;
   padding: 2rem var(--page-x) 3rem;
@@ -67,7 +69,7 @@ img {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
-  margin-bottom: clamp(4rem, 6.3vw, 5.6rem);
+  margin-bottom: 5.6rem;
 }
 
 .brand {
@@ -76,9 +78,19 @@ img {
 }
 
 .brand:focus-visible,
-button:focus-visible {
+button:focus-visible,
+select:focus-visible {
   outline: 3px solid var(--yellow-400);
   outline-offset: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .brand__logo--large {
@@ -168,7 +180,7 @@ button:focus-visible {
   color: var(--red-500);
 }
 
-#timeValue.is-running {
+.stat__value.is-running {
   color: var(--yellow-400);
 }
 
@@ -195,36 +207,27 @@ button:focus-visible {
   font-size: 1rem;
 }
 
-.choice-group {
-  display: flex;
-  gap: 0.45rem;
-}
-
-.choice,
-.select-trigger {
+.control__select {
+  min-width: 8rem;
   min-height: 2rem;
+  padding: 0.28rem 2rem 0.28rem 0.78rem;
   border: 1px solid var(--neutral-500);
   border-radius: 0.5rem;
   color: var(--neutral-0);
-  background: transparent;
+  background-color: var(--neutral-900);
+  background-image: url("./assets/images/icon-down-arrow.svg");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 0.75rem;
+  appearance: none;
   transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
-.choice {
-  padding: 0.28rem 0.78rem;
-  font-size: 1rem;
-}
-
-.choice:hover,
-.select-trigger:hover,
-.choice.is-active {
+.control__select:hover {
   border-color: var(--blue-600);
   color: var(--blue-400);
-}
-
-.select-trigger {
-  display: none;
 }
 
 .typing-card {
@@ -246,7 +249,7 @@ button:focus-visible {
   text-align: left;
   color: var(--neutral-400);
   background: transparent;
-  font-size: clamp(2.15rem, 3.05vw, 2.9rem);
+  font-size: 2.9rem;
   font-weight: 400;
   line-height: 1.35;
   letter-spacing: 0;
@@ -287,7 +290,7 @@ button:focus-visible {
   padding-top: 2rem;
   background: hsla(0, 0%, 7%, 0.18);
   backdrop-filter: blur(6px);
-  transition: opacity 160ms ease, visibility 160ms ease;
+  transition: opacity 160ms ease;
 }
 
 .start-overlay.is-hidden {
@@ -400,9 +403,9 @@ button:focus-visible {
   display: none;
 }
 
-.results h1 {
+.results h2 {
   margin: 0;
-  font-size: clamp(2.45rem, 3.4vw, 3.25rem);
+  font-size: 3.25rem;
   line-height: 1.1;
 }
 
@@ -438,12 +441,12 @@ button:focus-visible {
   font-weight: 700;
 }
 
-#resultCorrect,
+.result-count--correct,
 .result-card dd.is-good {
   color: var(--green-500);
 }
 
-#resultIncorrect {
+.result-count--incorrect {
   color: var(--red-500);
 }
 
@@ -498,7 +501,7 @@ button:focus-visible {
 
 @media (max-width: 980px) {
   .app {
-    width: min(100%, 520px);
+    max-width: 520px;
     padding: 1.25rem 1rem 2rem;
   }
 
@@ -594,77 +597,14 @@ button:focus-visible {
     clip: rect(0, 0, 0, 0);
   }
 
-  .select-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
+  .control__select {
     width: 100%;
     height: 2rem;
     padding: 0.25rem 0.6rem;
     color: var(--neutral-0);
-    background: var(--neutral-900);
+    background-position: right 0.6rem center;
     font-size: 1rem;
     min-width: 0;
-  }
-
-  .select-trigger img {
-    flex: 0 0 auto;
-    width: 12px;
-  }
-
-  .select-trigger span {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .choice-group {
-    position: absolute;
-    z-index: 10;
-    top: calc(100% + 0.45rem);
-    right: 0;
-    left: 0;
-    display: none;
-    overflow: hidden;
-    border-radius: 0.5rem;
-    background: var(--neutral-800);
-    box-shadow: 0 16px 30px hsla(0, 0%, 0%, 0.35);
-  }
-
-  .control.is-open .choice-group {
-    display: block;
-  }
-
-  .choice {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 2.35rem;
-    padding: 0.55rem 0.65rem;
-    border: 0;
-    border-bottom: 1px solid var(--border);
-    border-radius: 0;
-    color: var(--neutral-0);
-    background: var(--neutral-800);
-    text-align: left;
-  }
-
-  .choice:last-child {
-    border-bottom: 0;
-  }
-
-  .choice::before {
-    content: "";
-    width: 17px;
-    height: 17px;
-    margin-right: 0.75rem;
-    border: 1px solid var(--neutral-0);
-    border-radius: 50%;
-  }
-
-  .choice.is-active::before {
-    border: 5px solid var(--blue-600);
   }
 
   .typing-card {
@@ -693,7 +633,8 @@ button:focus-visible {
   }
 
   .start-overlay p {
-    width: min(100%, 340px);
+    width: 100%;
+    max-width: 340px;
     margin-top: 1.15rem;
     font-size: 1.15rem;
   }
@@ -719,7 +660,7 @@ button:focus-visible {
     margin-bottom: 1.7rem;
   }
 
-  .results h1 {
+  .results h2 {
     font-size: 2.35rem;
   }
 

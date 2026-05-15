@@ -9,6 +9,8 @@
 </head>
 <body>
   <main class="app" data-state="idle">
+    <h1 class="visually-hidden">Typing Speed Test</h1>
+
     <header class="header">
       <a class="brand" href="#" aria-label="Typing Speed Test home">
         <img class="brand__logo brand__logo--large" src="./assets/images/logo-large.svg" alt="">
@@ -27,54 +29,42 @@
       <dl class="stats">
         <div class="stat">
           <dt>WPM:</dt>
-          <dd id="wpmValue">0</dd>
+          <dd class="stat__value" id="wpmValue">0</dd>
         </div>
         <div class="stat">
           <dt>Accuracy:</dt>
-          <dd id="accuracyValue">100%</dd>
+          <dd class="stat__value" id="accuracyValue">100%</dd>
         </div>
         <div class="stat">
           <dt>Time:</dt>
-          <dd id="timeValue">0:60</dd>
+          <dd class="stat__value" id="timeValue">0:60</dd>
         </div>
       </dl>
 
       <div class="controls">
         <div class="control control--language" data-control="language">
-          <span class="control__label">Language:</span>
-          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
-            <span data-selected-label>English</span>
-            <img src="./assets/images/icon-down-arrow.svg" alt="">
-          </button>
-          <div class="choice-group" role="listbox" aria-label="Language">
-            <button class="choice is-active" type="button" role="option" data-language="en" aria-selected="true">English</button>
-            <button class="choice" type="button" role="option" data-language="uk" aria-selected="false">Українська</button>
-          </div>
+          <label class="control__label" for="languageSelect">Language:</label>
+          <select class="control__select" id="languageSelect" name="language">
+            <option value="en">English</option>
+            <option value="uk">Українська</option>
+          </select>
         </div>
 
         <div class="control control--difficulty" data-control="difficulty">
-          <span class="control__label">Difficulty:</span>
-          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
-            <span data-selected-label>Hard</span>
-            <img src="./assets/images/icon-down-arrow.svg" alt="">
-          </button>
-          <div class="choice-group" role="listbox" aria-label="Difficulty">
-            <button class="choice" type="button" role="option" data-difficulty="easy" aria-selected="false">Easy</button>
-            <button class="choice" type="button" role="option" data-difficulty="medium" aria-selected="false">Medium</button>
-            <button class="choice is-active" type="button" role="option" data-difficulty="hard" aria-selected="true">Hard</button>
-          </div>
+          <label class="control__label" for="difficultySelect">Difficulty:</label>
+          <select class="control__select" id="difficultySelect" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
         </div>
 
         <div class="control control--mode" data-control="mode">
-          <span class="control__label">Mode:</span>
-          <button class="select-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
-            <span data-selected-label>Timed (60s)</span>
-            <img src="./assets/images/icon-down-arrow.svg" alt="">
-          </button>
-          <div class="choice-group" role="listbox" aria-label="Mode">
-            <button class="choice is-active" type="button" role="option" data-mode="timed" aria-selected="true">Timed (60s)</button>
-            <button class="choice" type="button" role="option" data-mode="passage" aria-selected="false">Passage</button>
-          </div>
+          <label class="control__label" for="modeSelect">Mode:</label>
+          <select class="control__select" id="modeSelect" name="mode">
+            <option value="timed">Timed (60s)</option>
+            <option value="passage">Passage</option>
+          </select>
         </div>
       </div>
     </section>
@@ -104,7 +94,7 @@
       <img class="decor decor--one" src="./assets/images/pattern-star-1.svg" alt="">
       <img class="decor decor--two" src="./assets/images/pattern-star-2.svg" alt="">
 
-      <h1 id="resultTitle">Test Complete!</h1>
+      <h2 id="resultTitle">Test Complete!</h2>
       <p id="resultMessage">Solid run. Keep pushing to beat your high score.</p>
 
       <dl class="result-grid">
@@ -118,7 +108,7 @@
         </div>
         <div class="result-card">
           <dt>Characters</dt>
-          <dd><span id="resultCorrect">0</span><span>/</span><span id="resultIncorrect">0</span></dd>
+          <dd><span class="result-count result-count--correct" id="resultCorrect">0</span><span>/</span><span class="result-count result-count--incorrect" id="resultIncorrect">0</span></dd>
         </div>
       </dl>
 
