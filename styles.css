@@ -58,11 +58,11 @@ img {
 
 .app {
   position: relative;
-  width: 100%;
-  max-width: 90rem;
+  width: min(100%, 90rem);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem var(--page-x) 3rem;
+  padding-block: clamp(1.25rem, 2vw, 2rem) clamp(2rem, 3vw, 3rem);
+  padding-inline: min(var(--page-x), 8vw);
   overflow: hidden;
 }
 
@@ -88,8 +88,8 @@ select:focus-visible {
 
 .visually-hidden {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -212,7 +212,8 @@ select:focus-visible {
 .control__select {
   min-width: 8rem;
   min-height: 2rem;
-  padding: 0.28rem 2rem 0.28rem 0.78rem;
+  padding-block: 0.28rem;
+  padding-inline: 0.78rem 2rem;
   border: 1px solid var(--neutral-500);
   border-radius: 0.5rem;
   color: var(--neutral-0);
@@ -245,7 +246,8 @@ select:focus-visible {
 .passage {
   width: 100%;
   min-height: 430px;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   border: 0;
   text-align: left;
   color: var(--neutral-400);
@@ -308,7 +310,8 @@ select:focus-visible {
 }
 
 .primary-button {
-  padding: 1.05rem 1.65rem;
+  padding-block: clamp(1rem, 2vw, 1.05rem);
+  padding-inline: clamp(1.5rem, 3vw, 1.65rem);
   color: var(--neutral-0);
   background: var(--blue-600);
   font-size: 1.3rem;
@@ -327,8 +330,8 @@ select:focus-visible {
 
 .typing-input {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   opacity: 0;
   pointer-events: none;
 }
@@ -353,7 +356,8 @@ select:focus-visible {
   align-items: center;
   gap: 0.6rem;
   min-height: 3.4rem;
-  padding: 0.85rem 1.05rem;
+  padding-block: clamp(0.8rem, 2vw, 0.85rem);
+  padding-inline: clamp(1rem, 2vw, 1.05rem);
   color: var(--neutral-0);
   background: var(--neutral-800);
   font-size: 1.15rem;
@@ -374,7 +378,8 @@ select:focus-visible {
   justify-items: center;
   align-content: start;
   min-height: 780px;
-  padding: 2.4rem 0 3rem;
+  padding-block: clamp(2.4rem, 5vw, 3rem) 3rem;
+  padding-inline: 0;
   text-align: center;
 }
 
@@ -392,13 +397,12 @@ select:focus-visible {
 .results__icon--new {
   width: 64px;
   height: 64px;
-  margin-top: 0.8rem;
+  margin-block-start: 0.8rem;
   margin-block-end: 2.5rem;
 }
 
 .results[data-result="new-best"] .results__icon--complete,
-.results:not([data-result="new-best"]) .results__icon--new,
-.results:not([data-result="new-best"]) .results__confetti {
+.results:not([data-result="new-best"]) .results__icon--new {
   display: none;
 }
 
@@ -416,13 +420,14 @@ select:focus-visible {
 
 .result-grid {
   gap: 1.25rem;
-  margin-top: 3.2rem;
+  margin-block-start: 3.2rem;
 }
 
 .result-card {
   width: 160px;
   min-height: 92px;
-  padding: 1.15rem 1.5rem;
+  padding-block: clamp(1rem, 2vw, 1.15rem);
+  padding-inline: clamp(1.2rem, 3vw, 1.5rem);
   border: 1px solid var(--border);
   border-radius: 0.45rem;
   text-align: left;
@@ -450,7 +455,7 @@ select:focus-visible {
 }
 
 .again-button {
-  margin-top: 4rem;
+  margin-block-start: 4rem;
   color: var(--neutral-900);
   background: var(--neutral-0);
 }
@@ -466,13 +471,18 @@ select:focus-visible {
 
 .results__confetti {
   position: absolute;
-  inset-inline: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   width: 100%;
   height: 330px;
   object-fit: cover;
   object-position: bottom;
   pointer-events: none;
+}
+
+.results:not([data-result="new-best"]) .results__confetti {
+  display: none;
 }
 
 .decor {
@@ -497,10 +507,11 @@ select:focus-visible {
   display: none;
 }
 
-@media (max-width: 61.25rem) {
+@media (width <= 61.25rem) {
   .app {
-    max-width: 32.5rem;
-    padding: 1.25rem 1rem 2rem;
+    width: min(100%, 32.5rem);
+    padding-block: clamp(1.25rem, 4vw, 2rem);
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
   }
 
   .header {
@@ -518,7 +529,8 @@ select:focus-visible {
 
   .personal-best {
     gap: 0.45rem;
-    padding: 0;
+    padding-block: 0;
+    padding-inline: 0;
     font-size: 1rem;
   }
 
@@ -549,7 +561,8 @@ select:focus-visible {
     flex: 1;
     min-width: 0;
     margin: 0;
-    padding: 0 1rem;
+    padding-block: 0;
+    padding-inline: 1rem;
     text-align: center;
   }
 
@@ -583,14 +596,15 @@ select:focus-visible {
   .control,
   .control + .control {
     display: block;
-    padding: 0;
+    padding-block: 0;
+    padding-inline: 0;
     border: 0;
   }
 
   .control__label {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: 0.0625rem;
+    height: 0.0625rem;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
   }
@@ -598,7 +612,8 @@ select:focus-visible {
   .control__select {
     width: 100%;
     height: 2rem;
-    padding: 0.25rem 0.6rem;
+    padding-block: 0.25rem;
+    padding-inline: 0.6rem;
     color: var(--neutral-0);
     background-position: right 0.6rem center;
     font-size: 1rem;
@@ -626,14 +641,14 @@ select:focus-visible {
   }
 
   .primary-button {
-    padding: 1.05rem 1.55rem;
+    padding-block: clamp(1rem, 3vw, 1.05rem);
+    padding-inline: clamp(1.45rem, 5vw, 1.55rem);
     font-size: 1.2rem;
   }
 
   .start-overlay p {
-    width: 100%;
-    max-width: 21.25rem;
-    margin-top: 1.15rem;
+    width: min(100%, 21.25rem);
+    margin-block-start: 1.15rem;
     font-size: 1.15rem;
   }
 
@@ -649,7 +664,8 @@ select:focus-visible {
 
   .results {
     min-height: 650px;
-    padding: 4.2rem 0 2rem;
+    padding-block: clamp(4rem, 10vw, 4.2rem) 2rem;
+    padding-inline: 0;
   }
 
   .results__icon {
@@ -663,7 +679,7 @@ select:focus-visible {
   }
 
   .results p {
-    max-width: 19rem;
+    width: min(100%, 19rem);
     font-size: 1rem;
   }
 
@@ -671,7 +687,7 @@ select:focus-visible {
     display: grid;
     width: 100%;
     gap: 0.75rem;
-    margin-top: 2.5rem;
+    margin-block-start: 2.5rem;
   }
 
   .result-card {
@@ -680,7 +696,8 @@ select:focus-visible {
     justify-content: space-between;
     width: 100%;
     min-height: 4.6rem;
-    padding: 1rem 1.2rem;
+    padding-block: clamp(1rem, 3vw, 1.1rem);
+    padding-inline: clamp(1.1rem, 4vw, 1.2rem);
   }
 
   .result-card dd {
@@ -688,7 +705,7 @@ select:focus-visible {
   }
 
   .again-button {
-    margin-top: 2.5rem;
+    margin-block-start: 2.5rem;
   }
 
   .decor {
@@ -696,7 +713,7 @@ select:focus-visible {
   }
 }
 
-@media (max-width: 22.5rem) {
+@media (width <= 22.5rem) {
   .personal-best {
     font-size: 0.9rem;
   }
@@ -706,9 +723,9 @@ select:focus-visible {
   }
 }
 
-@media (max-width: 37.5rem) {
+@media (width <= 37.5rem) {
   .app {
-    max-width: 23.4375rem;
+    width: min(100%, 23.4375rem);
     margin: 0;
   }
 }
