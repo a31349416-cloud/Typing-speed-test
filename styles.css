@@ -20,6 +20,8 @@
   --yellow-400: hsl(49, 85%, 70%);
   --border: hsl(0, 0%, 24%);
   --page-x: 7rem;
+  --current-marker-bg: hsla(0, 0%, 100%, 0.2);
+  --overlay-bg: hsla(0, 0%, 7%, 0.18);
 }
 
 * {
@@ -57,7 +59,7 @@ img {
 .app {
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  max-width: 90rem;
   min-height: 100vh;
   margin: 0 auto;
   padding: 2rem var(--page-x) 3rem;
@@ -69,7 +71,7 @@ img {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
-  margin-bottom: 5.6rem;
+  margin-block-end: 5.6rem;
 }
 
 .brand {
@@ -108,7 +110,7 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  padding-top: 0.9rem;
+  padding-block-start: 0.9rem;
   color: var(--neutral-400);
   font-size: 1.25rem;
   line-height: 1;
@@ -132,8 +134,8 @@ select:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--border);
 }
 
 .stats,
@@ -151,15 +153,15 @@ select:focus-visible {
   align-items: baseline;
   gap: 0.8rem;
   min-width: 138px;
-  padding-right: 1.5rem;
-  margin-right: 1.5rem;
-  border-right: 1px solid var(--border);
+  padding-inline-end: 1.5rem;
+  margin-inline-end: 1.5rem;
+  border-inline-end: 1px solid var(--border);
 }
 
 .stat:last-child {
-  border-right: 0;
-  margin-right: 0;
-  padding-right: 0;
+  border-inline-end: 0;
+  margin-inline-end: 0;
+  padding-inline-end: 0;
 }
 
 .stat dt {
@@ -198,8 +200,8 @@ select:focus-visible {
 }
 
 .control + .control {
-  padding-left: 1rem;
-  border-left: 1px solid var(--border);
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--border);
 }
 
 .control__label {
@@ -220,7 +222,6 @@ select:focus-visible {
   background-repeat: no-repeat;
   background-size: 0.75rem;
   appearance: none;
-  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
   font-size: 1rem;
   white-space: nowrap;
 }
@@ -233,7 +234,7 @@ select:focus-visible {
 .typing-card {
   position: relative;
   min-height: 510px;
-  padding-top: 2.1rem;
+  padding-block-start: 2.1rem;
 }
 
 .app[data-state="idle"] .typing-card {
@@ -278,7 +279,7 @@ select:focus-visible {
   inset: 0.04em -0.05em 0;
   z-index: -1;
   border-radius: 0.16em;
-  background: hsla(0, 0%, 100%, 0.2);
+  background: var(--current-marker-bg);
 }
 
 .start-overlay {
@@ -287,10 +288,9 @@ select:focus-visible {
   display: grid;
   justify-items: center;
   align-content: center;
-  padding-top: 2rem;
-  background: hsla(0, 0%, 7%, 0.18);
+  padding-block-start: 2rem;
+  background: var(--overlay-bg);
   backdrop-filter: blur(6px);
-  transition: opacity 160ms ease;
 }
 
 .start-overlay.is-hidden {
@@ -305,7 +305,6 @@ select:focus-visible {
   border: 0;
   border-radius: 0.65rem;
   font-weight: 700;
-  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
 }
 
 .primary-button {
@@ -337,8 +336,8 @@ select:focus-visible {
 .action-row {
   display: flex;
   justify-content: center;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  padding-block-start: 2rem;
+  border-block-start: 1px solid var(--border);
 }
 
 .app[data-state="finished"] .toolbar,
@@ -387,14 +386,14 @@ select:focus-visible {
   width: 128px;
   height: 128px;
   object-fit: contain;
-  margin-bottom: 1.75rem;
+  margin-block-end: 1.75rem;
 }
 
 .results__icon--new {
   width: 64px;
   height: 64px;
   margin-top: 0.8rem;
-  margin-bottom: 2.5rem;
+  margin-block-end: 2.5rem;
 }
 
 .results[data-result="new-best"] .results__icon--complete,
@@ -467,9 +466,8 @@ select:focus-visible {
 
 .results__confetti {
   position: absolute;
-  right: 0;
+  inset-inline: 0;
   bottom: 0;
-  left: 0;
   width: 100%;
   height: 330px;
   object-fit: cover;
@@ -483,13 +481,13 @@ select:focus-visible {
 }
 
 .decor--one {
-  left: 7.7%;
+  inset-inline-start: 7.7%;
   top: 24.7%;
   width: 36px;
 }
 
 .decor--two {
-  right: 8%;
+  inset-inline-end: 8%;
   top: 52%;
   width: 70px;
 }
@@ -499,15 +497,15 @@ select:focus-visible {
   display: none;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 61.25rem) {
   .app {
-    max-width: 520px;
+    max-width: 32.5rem;
     padding: 1.25rem 1rem 2rem;
   }
 
   .header {
     align-items: center;
-    margin-bottom: 2.25rem;
+    margin-block-end: 2.25rem;
   }
 
   .brand__logo--large {
@@ -538,12 +536,12 @@ select:focus-visible {
 
   .toolbar {
     display: block;
-    padding-bottom: 1rem;
+    padding-block-end: 1rem;
   }
 
   .stats {
     justify-content: space-between;
-    margin-bottom: 1.1rem;
+    margin-block-end: 1.1rem;
   }
 
   .stat {
@@ -556,15 +554,15 @@ select:focus-visible {
   }
 
   .stat:first-child {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   .stat:last-child {
-    padding-right: 0;
+    padding-inline-end: 0;
   }
 
   .stat dt {
-    margin-bottom: 0.35rem;
+    margin-block-end: 0.35rem;
     font-size: 1rem;
   }
 
@@ -609,7 +607,7 @@ select:focus-visible {
 
   .typing-card {
     min-height: 505px;
-    padding-top: 2rem;
+    padding-block-start: 2rem;
   }
 
   .app[data-state="idle"] .typing-card {
@@ -624,7 +622,7 @@ select:focus-visible {
 
   .start-overlay {
     inset: 2rem 0 0;
-    padding-top: 0;
+    padding-block-start: 0;
   }
 
   .primary-button {
@@ -634,13 +632,13 @@ select:focus-visible {
 
   .start-overlay p {
     width: 100%;
-    max-width: 340px;
+    max-width: 21.25rem;
     margin-top: 1.15rem;
     font-size: 1.15rem;
   }
 
   .action-row {
-    padding-top: 1.5rem;
+    padding-block-start: 1.5rem;
   }
 
   .restart-button {
@@ -657,7 +655,7 @@ select:focus-visible {
   .results__icon {
     width: 112px;
     height: 112px;
-    margin-bottom: 1.7rem;
+    margin-block-end: 1.7rem;
   }
 
   .results h2 {
@@ -698,7 +696,7 @@ select:focus-visible {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 22.5rem) {
   .personal-best {
     font-size: 0.9rem;
   }
@@ -708,9 +706,9 @@ select:focus-visible {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5rem) {
   .app {
-    max-width: 375px;
+    max-width: 23.4375rem;
     margin: 0;
   }
 }
